@@ -1,0 +1,30 @@
+from setuptools import setup, find_packages
+
+setup(
+    name="Harmonify",
+    version="0.1.0",
+    description="Harmonify: A project fork of RVC V2",
+    author="Ryouko Yamanda",
+    author_email="your-email@example.com",
+    url="https://github.com/Ryouko-Yamanda65777/Harmonify.git",
+    packages=find_packages(where="lib"),
+    package_dir={"": "lib"},
+    install_requires=[
+        "av",
+        "ffmpeg-python>=0.2.0",
+        "faiss-cpu==1.7.3",
+        "praat-parselmouth==0.4.2",
+        "pyworld==0.3.4",
+        "resampy==0.4.2",
+        "fairseq==0.12.2",
+        "pydub==0.25.1",
+        "einops",
+        "local-attention",
+        "torchcrepe==0.0.20",
+        "torchfcpe",
+        "gradio",
+        "yt_dlp",
+        "audio-separator[gpu]",
+    ],
+    python_requires='>=3.6',
+)
