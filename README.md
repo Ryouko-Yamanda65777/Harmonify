@@ -7,7 +7,8 @@
 ## **Credits**
 
 [Ryouko](https://github.com/Ryouko-Yamanda65777) - pip port
-[Eempostor](https://discordapp.com/users/818050831034613771) - Made everything work together, Notebook creator
+
+[Eempostor](https://discordapp.com/users/818050831034613771) - Made everything work together
 
 [Applio](https://github.com/IAHispano/Applio-RVC-Fork) by [IAHispano](https://github.com/IAHispano) - The repo this colab is based on
 
