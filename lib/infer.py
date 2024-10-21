@@ -52,10 +52,10 @@ class Configs:
 #                with open(BASE_DIR / "src" / "trainset_preprocess_pipeline_print.py", "w") as f:
 #                    f.write(strr)
         elif torch.backends.mps.is_available():
-            print("No supported N-card found, use MPS for inference")
+            print("[ X ] No supported N-card found, use MPS for inference")
             self.device = "mps"
         else:
-            print("No supported N-card found, use CPU for inference")
+            print("[ X ] No supported N-card found, use CPU for inference")
             self.device = "cpu"
 
         if self.n_cpu == 0:
@@ -121,9 +121,9 @@ def infer_audio(
     f0_autotune=False,
     audio_format="wav",
     resample_sr=0,
-    hubert_model_path="assets/hubert/hubert_base.pt",
-    rmvpe_model_path="assets/rmvpe/rmvpe.pt",
-    fcpe_model_path="assets/fcpe/fcpe.pt"
+    hubert_model_path="hubert_base.pt",
+    rmvpe_model_path="rmvpe.pt",
+    fcpe_model_path="fcpe.pt"
     ):
     os.environ["rmvpe_model_path"] = rmvpe_model_path
     os.environ["fcpe_model_path"] = fcpe_model_path
@@ -136,11 +136,11 @@ def infer_audio(
         inferred_files = []
         temp_dir = os.path.join(os.getcwd(), "seperate", "temp")
         os.makedirs(temp_dir, exist_ok=True)
-        print("Splitting audio to silence and nonsilent segments.")
+        print("[ ~ ] Splitting audio to silence and nonsilent segments.")
         silence_files, nonsilent_files = split_silence_nonsilent(audio_path, min_silence, silence_threshold, seek_step, keep_silence)
-        print(f"Total silence segments: {len(silence_files)}.\nTotal nonsilent segments: {len(nonsilent_files)}.")
+        print(f"[ ~ ] Total silence segments: {len(silence_files)}.\nTotal nonsilent segments: {len(nonsilent_files)}.")
         for i, nonsilent_file in enumerate(nonsilent_files):
-            print(f"Inferring nonsilent audio {i+1}")
+            print(f"[ ~ ] Inferring nonsilent audio {i+1}")
             inference_info, audio_data, output_path = vc.vc_single(
             0,
             nonsilent_file,
@@ -164,19 +164,19 @@ def infer_audio(
             hubert_model_path
             )
             if inference_info[0] == "Success.":
-                print("Inference ran successfully.")
+                print("[ ✓ ] Inference ran successfully.")
                 print(inference_info[1])
                 print("Times:\nnpy: %.2fs f0: %.2fs infer: %.2fs\nTotal time: %.2fs" % (*inference_info[2],))
             else:
-                print(f"An error occurred while processing.\n{inference_info[0]}")
+                print(f"[ X ] An error occurred while processing.\n{inference_info[0]}")
                 return None
             inferred_files.append(output_path)
         print("Adjusting inferred audio lengths.")
         adjusted_inferred_files = adjust_audio_lengths(nonsilent_files, inferred_files)
-        print("Combining silence and inferred audios.")
+        print("[ ~ ] Combining silence and inferred audios.")
         output_count = 1
         while True:
-            output_path = os.path.join(os.getcwd(), "output", f"{os.path.splitext(os.path.basename(audio_path))[0]}{model_name}{f0_method.capitalize()}_{output_count}.{audio_format}")
+            output_path = os.path.join(os.getcwd(), "output", f"{os.path.splitext(os.path.basename(audio_path))[0]}_{model_name}_{f0_method.capitalize()}_{output_count}.{audio_format}")
             if not os.path.exists(output_path):
                 break
             output_count += 1
@@ -207,7 +207,7 @@ def infer_audio(
             hubert_model_path
         )
         if inference_info[0] == "Success.":
-            print("Inference ran successfully.")
+            print("[ ✓ ] Inference ran successfully.")
             print(inference_info[1])
             print("Times:\nnpy: %.2fs f0: %.2fs infer: %.2fs\nTotal time: %.2fs" % (*inference_info[2],))
         else:
