@@ -5,7 +5,7 @@ setup(
     version="0.1.0",
     description="Harmonify: A project fork of RVC V2",
     author="Ryouko Yamanda",
-    author_email="your-email@example.com",
+    author_email="blane187git@gmail.com",
     url="https://github.com/Ryouko-Yamanda65777/Harmonify.git",
     packages=find_packages(where="lib"),
     package_dir={"": "lib"},
