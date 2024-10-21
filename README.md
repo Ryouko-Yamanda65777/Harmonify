@@ -17,7 +17,7 @@
 
 [Phind](https://www.phind.com/) - Helper
 
-If you have any suggestions or problems on this colab, dm [me](https://discordapp.com/users/818050831034613771) on discord.
+
 
 ## **Changelogs**
 9/3/2024 | Huge changes
